@@ -123,7 +123,7 @@ def home():
 
 @app.route("/writers")
 def about():
-    return render_template('about.html', title='About')
+    return render_template('writers.html', title='About')
 
 
 @app.route("/register", methods=['GET', 'POST'])
