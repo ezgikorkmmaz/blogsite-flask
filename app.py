@@ -101,16 +101,16 @@ class Post(db.Model):
 
 posts = [
     {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
+        'author': 'Ezgi Korkmaz',
+        'title': 'How to be?',
+        'content': 'So happy to share my first content',
+        'date_posted': 'April 20, 2021'
     },
     {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018'
+        'author': 'Emir Yigit',
+        'title': 'Started from the bottom',
+        'content': 'Second content on site',
+        'date_posted': 'April 21, 2021'
     }
 ]
 
@@ -121,7 +121,7 @@ def home():
     return render_template('home.html', posts=posts)
 
 
-@app.route("/about")
+@app.route("/writers")
 def about():
     return render_template('about.html', title='About')
 
@@ -159,6 +159,15 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
+    return redirect(url_for('home'))
+
+
+@app.route("/delete/<string:id>")
+def delete(id):
+    user = User.query.filter_by(id=id).first()
+    db.session.delete(user)
+    db.session.commit()
+
     return redirect(url_for('home'))
 
 
