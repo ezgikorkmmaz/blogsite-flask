@@ -104,13 +104,13 @@ posts = [
         'author': 'Ezgi Korkmaz',
         'title': 'How to be?',
         'content': 'So happy to share my first content',
-        'date_posted': 'April 20, 2021'
+        'date_posted': 'April 17, 2021'
     },
     {
         'author': 'Emir Yigit',
         'title': 'Started from the bottom',
         'content': 'Second content on site',
-        'date_posted': 'April 21, 2021'
+        'date_posted': 'April 18, 2021'
     }
 ]
 
