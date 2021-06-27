@@ -2,9 +2,11 @@ import os
 import secrets
 from PIL import Image
 from datetime import datetime
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, abort
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
@@ -16,6 +18,7 @@ app.config['SECRET_KEY'] = 'e217952872017e'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/User/PycharmProjects/flask_site2/users.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+admin = Admin(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
@@ -86,6 +89,17 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+
+
+class Controller(ModelView):
+    def is_accessible(self):
+        if current_user.id == 1:
+            return current_user.is_authenticated
+        else:
+            return abort(404)
+
+    def not_auth(self):
+        return "You are not allowed to see this page!"
 
 
 class Post(db.Model):
@@ -204,6 +218,9 @@ def account():
     image_file = url_for('static', filename='img/' + current_user.image_file)
     return render_template('account.html', title='Account',
                            image_file=image_file, form=form)
+
+
+admin.add_view(Controller(User, db.session))
 
 
 if __name__ == '__main__':
