@@ -1,4 +1,4 @@
-# Login and Register Form with Flask and SQLALchemy
+# A BlogSite built with Flask 
 
 I have created a web application using flask framework and python. It's a blog based application where different users can sign up and sign in to share and read different posts. It has simple and useful login/register forms. Users can update their accounts and add/change their profile pictures. I have used Flask, Python, Bootstrap, SQLAlchemy. 
 
